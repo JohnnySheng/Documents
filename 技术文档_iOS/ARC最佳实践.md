@@ -21,7 +21,7 @@
   @property (nonatomic, weak) NSObject <SomeDelegate> *delegate;
   ```
 
-  - 闭包应该使用 `copy` ：
+  - 闭包应该使用 `copy` ：字符串也用`copy`
 
   ```
   @property (nonatomic, copy) SomeBlockType someBlock;
