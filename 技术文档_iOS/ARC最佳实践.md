@@ -34,7 +34,7 @@
     - 关闭所有的计时器 (invalidate any timers)
 
 
-  - 所有的 `IBOutlet` 都应该是 `weak` 的。除非顶层的 `IBOutlet` 应该是 `strong` 的，比如 `UIViewController` 的 `View` 是需要直接拥有的，所以应该设置成 `strong` 。
+- 所有的 `IBOutlet` 都应该是 `weak` 的。除非顶层的 `IBOutlet` 应该是 `strong` 的，比如 `UIViewController` 的 `View` 是需要直接拥有的，所以应该设置成 `strong` 。
 
 ## Bridging
 
@@ -69,8 +69,7 @@ CFStringRef d = (__bridge_retained CFStringRef)my_id;  // returned CFRef +1
     *error = [[NSError alloc] initWithDomain:@"" code:-1 userInfo:nil];
     return NO;
   }
-  else
-  {
+  else{
       return YES;
   }
 }
@@ -81,8 +80,7 @@ CFStringRef d = (__bridge_retained CFStringRef)my_id;  // returned CFRef +1
 ```
 NSError __autoreleasing *error = error;
 BOOL OK = [myObject performOperationWithError:&error];
-if (!OK)
-{
+if (!OK){
     // handle the error.
 }
 ```
@@ -100,10 +98,8 @@ if (!OK)
 
 ```
 // 如果 someArray 里的元素非常多
-for (id obj in someArray)
-{
-    @autoreleasepool
-    {
+for (id obj in someArray){
+    @autoreleasepool{
         // 或者在每次遍历里都创建了大量的临时变量
     }
 }
@@ -152,13 +148,11 @@ __weak SomeObjectClass *weakSelf = self;
 
 SomeBlockType someBlock = ^{
     SomeObjectClass *strongSelf = weakSelf;
-    if (strongSelf == nil)
-    {
+    if (strongSelf == nil){
         // The original self doesn't exist anymore.
         // Ignore, notify or otherwise handle this case.
     }
-    else
-    {
+    else{
         [strongSelf someMethod];
     }
 };
@@ -172,18 +166,18 @@ __weak SomeObjectClass *weakSomeObject = someObject;
 
 someObject.completionHandler = ^{
     SomeObjectClass *strongSomeObject = weakSomeObject;
-    if (strongSomeObject == nil)
-    {
+    if (strongSomeObject == nil){
         // The original someObject doesn't exist anymore.
         // Ignore, notify or otherwise handle this case.
     }
-    else
-    {
+    else{
         // okay, NOW we can do something with someObject
         [strongSomeObject someMethod];
     }
 };
 ```
+
+
 
 ## Accessing CGThings from NSThings or UIThings
 
@@ -234,8 +228,7 @@ CFRetain(redRef);  // 这里可能会崩溃
 标准的单例模式的实现应该是这个样子的：
 
 ```
-+ (MyClass *)singleton
-{
++ (MyClass *)singleton{
     static MyClass *sharedMyClass = nil;
     static dispatch_once_t once = 0;
     dispatch_once(&once, ^{sharedMyClass = [[self alloc] init];});
